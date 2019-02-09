@@ -1,15 +1,18 @@
 complete <- function(directory ,id= 1:332){
   
-  file_names <- list.files(path= directory, pattern= "*.csv" ,full.names = T)
+  file_names <- list.files(path= directory ,full.names = T)
   ids<- c()
+  d<- data.frame()
   
-  for(i in seq_along(id)){
+  for(i in id){
     file1 <- read.csv(file_names[i])
     ids<- c(ids,i)
-    
     counts <- sum(complete.cases(file1))
+   tempo <- data.frame(i,counts)
+   d<- rbind(d,tempo)
   }
-  data.frame(id= ids, nobs=counts)
+ colnames(d) <- c("id","nobs")
+ d
 }
 
 #TEST CASES
