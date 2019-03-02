@@ -1,0 +1,12 @@
+library(httr)
+library(httpuv)
+library(jsonlite)
+oauth_endpoints("github")
+myapp <- oauth_app("Coursera- quiz" , key = "ac62c5e7e01d80ee2c68" ,secret = "7f0f9d24cd11858869a090de4386ea1f28366ce2")
+github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
+req <- GET("https://api.github.com/users/jtleek/repos")
+stop_for_status(req)
+output <- content(req)
+datashare <- which(sapply(output, FUN=function(X) "datasharing" %in% X))
+datashare
+list(output[[16]]$name, output[[16]]$created_at)
